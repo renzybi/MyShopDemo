@@ -38,7 +38,11 @@ namespace MyShop.Data.InMem
 
             if (productToBeUpdated != null)
             {
-                productToBeUpdated = product;
+                productToBeUpdated.Name = product.Name;
+                productToBeUpdated.Description = product.Description;
+                productToBeUpdated.Category = product.Category;
+                productToBeUpdated.Image = product.Image;
+                productToBeUpdated.Price = product.Price;
             }
             else
             {
