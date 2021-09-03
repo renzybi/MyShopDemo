@@ -288,6 +288,10 @@
       <Project>{3b11cbdc-3559-4c90-bc88-044d3aaf7545}</Project>
       <Name>MyShop.Data.InMem</Name>
     </ProjectReference>
+    <ProjectReference Include="..\MyShop.Data.SQL\MyShop.Data.SQL.csproj">
+      <Project>{F4E1F4DC-744F-48BE-B3F9-6548A95F8BFF}</Project>
+      <Name>MyShop.Data.SQL</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
