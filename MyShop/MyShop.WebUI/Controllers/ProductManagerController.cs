@@ -11,13 +11,13 @@ namespace MyShop.WebUI.Controllers
 {
     public class ProductManagerController : Controller
     {
-        private readonly ProductRepository _productRepo;
-        private readonly ProductCategoryRepository _productCategoryRepo;
+        private readonly InMemRepository<Product> _productRepo;
+        private readonly InMemRepository<ProductCategory> _productCategoryRepo;
 
         public ProductManagerController()
         {
-            _productRepo = new ProductRepository();
-            _productCategoryRepo = new ProductCategoryRepository();
+            _productRepo = new InMemRepository<Product>();
+            _productCategoryRepo = new InMemRepository<ProductCategory>();
         }
 
         public ActionResult Index()
@@ -73,15 +73,31 @@ namespace MyShop.WebUI.Controllers
         [HttpPost]
         public ActionResult Edit(Product product, string id)
         {
-            if (!ModelState.IsValid)
+            var productToBeEdited = _productRepo.Find(id);
+
+            if (productToBeEdited == null)
             {
-                return View(product);
+                return HttpNotFound();
             }
             else
             {
-                _productRepo.Update(product);
-                _productRepo.Commit();
-                return RedirectToAction("Index");
+                if (!ModelState.IsValid)
+                {
+                    return View(product);
+                }
+                else
+                {
+                    productToBeEdited.Name = product.Name;
+                    productToBeEdited.Category = product.Category;
+                    productToBeEdited.Description = product.Description;
+                    productToBeEdited.Price = product.Price;
+                    productToBeEdited.Image = product.Image;
+
+                    _productRepo.Update(productToBeEdited);
+                    _productRepo.Commit();
+
+                    return RedirectToAction("Index");
+                }
             }
         }
 
@@ -99,7 +115,7 @@ namespace MyShop.WebUI.Controllers
                 return View(productToBeDelete);
             }
         }
-        
+
         [HttpPost]
         [ActionName("Delete")]
         public ActionResult ConfirmDelete(string id)

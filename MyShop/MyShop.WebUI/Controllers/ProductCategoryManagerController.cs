@@ -11,11 +11,11 @@ namespace MyShop.WebUI.Controllers
 {
     public class ProductCategoryManagerController : Controller
     {
-        ProductCategoryRepository _prodCatRepo;
+        InMemRepository<ProductCategory> _prodCatRepo;
 
         public ProductCategoryManagerController()
         {
-            _prodCatRepo = new ProductCategoryRepository();
+            _prodCatRepo = new InMemRepository<ProductCategory>();
         }
 
         public ActionResult Index()
@@ -77,7 +77,9 @@ namespace MyShop.WebUI.Controllers
                 }
                 else
                 {
-                    _prodCatRepo.Update(productCategory);
+                    productCategoryToBeEdited.CategoryName = productCategory.CategoryName;
+
+                    _prodCatRepo.Update(productCategoryToBeEdited);
                     _prodCatRepo.Commit();
 
                     return RedirectToAction("Index");
