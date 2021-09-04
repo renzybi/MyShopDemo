@@ -4,6 +4,7 @@ using MyShop.Core.ViewModels;
 using MyShop.Data.InMem;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -41,7 +42,7 @@ namespace MyShop.WebUI.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(Product product)
+        public ActionResult Create(Product product, HttpPostedFileBase file)
         {
             if (!ModelState.IsValid)
             {
@@ -49,6 +50,11 @@ namespace MyShop.WebUI.Controllers
             }
             else
             {
+                if (file != null)
+                {
+                    product.Image = product.Id + Path.GetExtension(file.FileName);
+                    file.SaveAs(Server.MapPath("//Content//ProductImages//") + product.Image);
+                }
                 _productRepo.Insert(product);
                 _productRepo.Commit();
                 return RedirectToAction(nameof(Index));
@@ -74,7 +80,7 @@ namespace MyShop.WebUI.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit(Product product, string id)
+        public ActionResult Edit(Product product, string id, HttpPostedFileBase file)
         {
             var productToBeEdited = _productRepo.Find(id);
 
@@ -90,11 +96,16 @@ namespace MyShop.WebUI.Controllers
                 }
                 else
                 {
+                    if (file != null)
+                    {
+                        productToBeEdited.Image = productToBeEdited.Id + Path.GetExtension(file.FileName);
+                        file.SaveAs(Server.MapPath("//Content//ProductImages//") + productToBeEdited.Image);
+                    }
+
                     productToBeEdited.Name = product.Name;
                     productToBeEdited.Category = product.Category;
                     productToBeEdited.Description = product.Description;
                     productToBeEdited.Price = product.Price;
-                    productToBeEdited.Image = product.Image;
 
                     _productRepo.Update(productToBeEdited);
                     _productRepo.Commit();
