@@ -23,7 +23,8 @@
                 <h4 class="text-danger">$@product.Price</h4>
             </div>
             <div class="col-md-6" style="padding-right: 0;">
-                <a class="btn btn-sm btn-success" style="border-radius: 20px;">
+                <a class="btn btn-sm btn-success" style="border-radius: 20px;"
+                   href="@Url.Action("AddToBasket", "Basket", new { Id=product.Id })">
                     Add to Basket
                 </a>
             </div>
