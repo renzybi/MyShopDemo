@@ -32,7 +32,7 @@ namespace MyShop.Services
             {
                 string basketId = cookie.Value;
 
-                if (!string.IsNullOrEmpty(basketId))
+                if (string.IsNullOrEmpty(basketId))
                 {
                     basket = _basketRepo.Find(basketId);
                 }
@@ -97,11 +97,11 @@ namespace MyShop.Services
             _basketRepo.Commit();
         }
 
-        public void RemoveFromBasket(HttpContextBase httpContext, string itemId)
+        public void RemoveFromBasket(HttpContextBase httpContext, string productId)
         {
             Basket basket = GetBasket(httpContext, true);
 
-            BasketItem basketItem = basket.BasketItems.FirstOrDefault(i => i.Id == itemId);
+            BasketItem basketItem = basket.BasketItems.FirstOrDefault(i => i.ProductId == productId);
 
             if (basketItem != null)
             {
