@@ -296,6 +296,10 @@
       <Project>{F4E1F4DC-744F-48BE-B3F9-6548A95F8BFF}</Project>
       <Name>MyShop.Data.SQL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\MyShop.Services\MyShop.Services.csproj">
+      <Project>{91E34376-FCD1-4471-A93E-17FBF0ED2E2C}</Project>
+      <Name>MyShop.Services</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
