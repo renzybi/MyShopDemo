@@ -1,5 +1,6 @@
 ﻿using MyShop.Core.Contracts;
 using MyShop.Core.Models;
+using MyShop.Core.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,7 +25,11 @@ namespace MyShop.WebUI.Controllers
         {
             List<Product> products = _prodRepo.Collection().ToList();
             ViewBag.Header = "Products";
-            return View(products);
+
+            ProductListViewModel productListViewModel = new ProductListViewModel();
+            productListViewModel.Products = products;
+
+            return View(productListViewModel);
         }
 
         public ActionResult Details(string id)
