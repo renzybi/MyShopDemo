@@ -20,7 +20,6 @@ namespace MyShop.WebUI.Tests.Controllers
             MockHttpContext httpContext = new MockHttpContext();
 
             BasketService basketService = new BasketService(basketRepo, productRepo);
-            var controller = new BasketController
 
             basketService.AddToBasket(httpContext, "1");
 
@@ -29,7 +28,6 @@ namespace MyShop.WebUI.Tests.Controllers
             Assert.IsNotNull(basket.BasketItems);
             Assert.AreEqual(1, basket.BasketItems.Count());
             Assert.AreEqual("1", basket.BasketItems.FirstOrDefault().ProductId);
-
         }
     }
 }
