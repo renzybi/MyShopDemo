@@ -1,9 +1,9 @@
-﻿@model IEnumerable<MyShop.Core.Models.Product>
+﻿@model MyShop.Core.ViewModels.ProductListViewModel
 
 <h2>@ViewBag.Header</h2>
 <hr />
 
-@foreach (var product in Model)
+@foreach (var product in Model.Products)
 {
     <div class="col-md-3"
          style="border: 3px solid #808080; border-radius: 5px;
