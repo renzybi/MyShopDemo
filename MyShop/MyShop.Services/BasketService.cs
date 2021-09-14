@@ -110,6 +110,13 @@ namespace MyShop.Services
             }
         }
 
+        public void ClearBasket(HttpContextBase httpContext)
+        {
+           Basket basket = GetBasket(httpContext, false);
+           basket.BasketItems.Clear();
+            _basketRepo.Commit();
+        }
+
         public List<BasketItemViewModel> GetBasketItems(HttpContextBase httpContext)
         {
             Basket basket = GetBasket(httpContext, false);
